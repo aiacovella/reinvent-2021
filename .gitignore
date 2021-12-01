@@ -1,0 +1,15 @@
+env/
+.pio
+.vscode/
+output_files/
+**/*.pem
+**/*.crt
+**/*.csr
+**/*.iml
+sdkconfig
+**/*.code-workspace
+**/.idea
+**/cmake-build-debug
+**/*.pyc
+**/*.bin
+.DS_Store

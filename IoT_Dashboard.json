@@ -1,0 +1,404 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "description": "",
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "gnetId": null,
+  "graphTooltip": 0,
+  "id": 1,
+  "iteration": 1638034163749,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "datasource": null,
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "smooth",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Temperature"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#73BF69",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "unit",
+                "value": "fahrenheit"
+              },
+              {
+                "id": "custom.axisPlacement",
+                "value": "left"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Humidity"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "orange",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "unit",
+                "value": "percent"
+              },
+              {
+                "id": "custom.axisPlacement",
+                "value": "right"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Limit"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "red",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.axisPlacement",
+                "value": "left"
+              },
+              {
+                "id": "unit",
+                "value": "fahrenheit"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 15,
+        "x": 4,
+        "y": 0
+      },
+      "id": 15,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "targets": [
+        {
+          "queryType": "raw",
+          "rawQuery": "SELECT measure_name,time,measure_value::double as \"Temperature\" FROM $__database.$__table WHERE time between ago(15m) and now() and 'temperature' = \"measure_name\" and '${device_identifier}' = \"device_id\"",
+          "refId": "A",
+          "table": "\"environment\""
+        },
+        {
+          "hide": false,
+          "queryType": "raw",
+          "rawQuery": "SELECT measure_name,time,measure_value::double as \"Humidity\" FROM $__database.$__table WHERE time between ago(15m) and now() and 'humidity' = \"measure_name\" and '${device_identifier}' = \"device_id\"",
+          "refId": "B",
+          "table": "\"environment\""
+        },
+        {
+          "hide": false,
+          "queryType": "raw",
+          "rawQuery": "SELECT measure_name,time,measure_value::bigint as \"Limit\" FROM $__database.$__table WHERE time between ago(15m) and now() and 'setpoint' = \"measure_name\" and '${device_identifier}' = \"device_id\"",
+          "refId": "C",
+          "table": "\"environment\""
+        }
+      ],
+      "title": "Environment",
+      "type": "timeseries"
+    },
+    {
+      "datasource": null,
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 18,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "stepBefore",
+            "lineWidth": 1,
+            "pointSize": 7,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "bool_on_off"
+        },
+        "overrides": [
+          {
+            "__systemRef": "hideSeriesFrom",
+            "matcher": {
+              "id": "byNames",
+              "options": {
+                "mode": "exclude",
+                "names": [
+                  "Fan State"
+                ],
+                "prefix": "All except:",
+                "readOnly": true
+              }
+            },
+            "properties": [
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": true
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 15,
+        "x": 4,
+        "y": 8
+      },
+      "id": 4,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "targets": [
+        {
+          "measure": "fan",
+          "queryType": "raw",
+          "rawQuery": "SELECT measure_name,time, measure_value::bigint as \"Fan State\" FROM $__database.$__table WHERE time between ago(15m) and now() AND 'fan' = \"measure_name\" and '${device_identifier}' = \"device_id\" order by time",
+          "refId": "A",
+          "table": "\"environment\""
+        }
+      ],
+      "title": "Fan",
+      "type": "timeseries"
+    },
+    {
+      "collapsed": false,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 15
+      },
+      "id": 22,
+      "panels": [],
+      "type": "row"
+    },
+    {
+      "datasource": null,
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 7,
+        "y": 16
+      },
+      "id": 14,
+      "options": {
+        "content": "<img src=\"https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.americancsm.com%2Fwp-content%2Fuploads%2F2017%2F10%2Ficon-cloud-aws.png&f=1&nofb=1\" width=\"300\" style=\"float:left; padding-top:20px; padding-left:50px\"/>\n\n",
+        "mode": "markdown"
+      },
+      "pluginVersion": "8.2.5",
+      "type": "text"
+    },
+    {
+      "datasource": null,
+      "gridPos": {
+        "h": 3,
+        "w": 4,
+        "x": 10,
+        "y": 16
+      },
+      "id": 13,
+      "options": {
+        "content": "<img src=\"https://chariotsolutions.com/wp-content/uploads/2017/09/chariot-logo-full-text-1.png\" alt=\"alt text\" title=\"image Title\" width=\"450\" style=\"float:left; padding-top:20px; padding-left:50px\"/>\n\n",
+        "mode": "markdown"
+      },
+      "pluginVersion": "8.2.5",
+      "type": "text"
+    }
+  ],
+  "refresh": "5s",
+  "schemaVersion": 32,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "allValue": null,
+        "current": {
+          "selected": false,
+          "text": "0123641F7CD1697FEE",
+          "value": "0123641F7CD1697FEE"
+        },
+        "description": null,
+        "error": null,
+        "hide": 0,
+        "includeAll": false,
+        "label": "Device",
+        "multi": false,
+        "name": "device_identifier",
+        "options": [
+          {
+            "selected": true,
+            "text": "0123641F7CD1697FEE",
+            "value": "0123641F7CD1697FEE"
+          },
+          {
+            "selected": false,
+            "text": "012302c9365966ab01",
+            "value": "012302c9365966ab01"
+          },
+          {
+            "selected": false,
+            "text": "01238c70ac3ec5c201",
+            "value": "01238c70ac3ec5c201"
+          },
+          {
+            "selected": false,
+            "text": "012388ec1c05c40701",
+            "value": "012388ec1c05c40701"
+          }
+        ],
+        "query": "0123641F7CD1697FEE,012302c9365966ab01,01238c70ac3ec5c201,012388ec1c05c40701",
+        "queryValue": "",
+        "skipUrlSync": false,
+        "type": "custom"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-15m",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "IoT Dashboard",
+  "uid": "F_SW9WKnz",
+  "version": 52
+}
